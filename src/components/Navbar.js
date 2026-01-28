@@ -1,6 +1,7 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 
-export default function Navbar(navigate) {
+export default function Navbar() {
+  const navigate = useNavigate();
 
   // Check if user is logged in
   const token = localStorage.getItem("token");
