@@ -1,35 +1,49 @@
 import { NavLink } from "react-router-dom";
 
-export default function Navbar() {
+export default function Navbar(navigate) {
+
+  // Check if user is logged in
+  const token = localStorage.getItem("token");
+  function handleLogout() {
+    localStorage.removeItem("token");
+    navigate("/"); // or /login
+  }
+
   return (
     <header className="navbar-header">
       <div className="navbar-container">
         <strong className="navbar-brand">
           📇 Card App
         </strong>
-        
+
         <nav className="navbar-nav">
-          <NavLink 
-            to="/" 
+          <NavLink
+            to="/"
             end
             className={({ isActive }) => isActive ? "nav-link active" : "nav-link"}
           >
             Home
           </NavLink>
-          
-          <NavLink 
+
+          <NavLink
             to="/cards"
             className={({ isActive }) => isActive ? "nav-link active" : "nav-link"}
           >
             Card List
           </NavLink>
-          
-          <NavLink 
+
+          <NavLink
             to="/cards/new"
             className={({ isActive }) => isActive ? "nav-link active" : "nav-link"}
           >
             Add Card
           </NavLink>
+
+          {token ? (
+            <button onClick={handleLogout}>Logout</button>
+          ) : (
+            <NavLink to="/login">Login</NavLink>
+          )}
         </nav>
       </div>
     </header>
